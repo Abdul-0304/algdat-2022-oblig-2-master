@@ -57,7 +57,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean tom() {
         return antall == 0; // Returnere true eller false basert på om antall=0
-        //throw new UnsupportedOperationException();
+        //trow new UnsupportedOperationException();
     }
 
     @Override
