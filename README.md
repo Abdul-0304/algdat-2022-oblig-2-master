@@ -17,4 +17,4 @@ verdien som ikke er null. Deretter gikk vi gjennom resterende verdiene. Vi mått
 
 I oppgave 2 så brukte vi lang tid på å løse, vi tok mye inspirasjon fra komdendiet og kodet det selv. Oppgave 2a, det å lage tostring og omvendtstring
 metoden, så var det egentlig nesten det samme. Bare at på tostring brukte vi hode, men på omvendtstring brukte vi hale. Deretter 2b, den var ganske lett
-med tanke vi tok inspirasjon fra komdendiet.
+med tanke vi tok inspirasjon fra komdendiet. lalala
