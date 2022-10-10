@@ -48,7 +48,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (a.length > 0){ //Hvis a sin lengde er større en 0
 
             int i = 0;
-
             while (i < a.length){ //går inn i en while loop
 
                 if (a[i] != null){ //hvis en verdi ikke er lik null, setter vi den verdien til hode;
