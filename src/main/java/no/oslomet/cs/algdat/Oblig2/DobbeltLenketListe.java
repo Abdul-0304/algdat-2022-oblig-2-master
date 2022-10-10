@@ -31,6 +31,23 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     }
 
+    private Node<T> finnNode(int indeks){
+        Node<T> current;
+        if(indeks < antall/2){
+            current = hode;
+            for (int i = 0; i < indeks; i++){
+                current = current.neste;
+            }
+            return current;
+        }
+
+        current = hale;
+        for (int i = antall - 1; i > indeks; i--){
+            current = current.forrige;
+        }
+        return current;
+    }
+
     // instansvariabler
     private Node<T> hode;          // peker til den første i listen
     private Node<T> hale;          // peker til den siste i listen
@@ -38,7 +55,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        throw new UnsupportedOperationException();
+        hode = hale = null;
+        antall = 0;
+        endringer = 0;
+    }
+
+    private void fraTilKontroll(int tabellengde, int fra, int til){
+        if (fra < 0)                                  // fra er negativ
+            throw new IndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+        if (til > tabellengde)                          // til er utenfor tabellen
+            throw new IndexOutOfBoundsException
+                    ("til(" + til + ") > antall(" + tabellengde + ")");
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+
     }
 
     public DobbeltLenketListe(T[] a) {
@@ -77,7 +109,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra, int til) {
-        throw new UnsupportedOperationException();
+
+        fraTilKontroll(antall,fra,til);
+
+        Liste<T> liste = new DobbeltLenketListe<>();
+        int tabellengde = til-fra;
+
+        if (tabellengde < 1) return liste;
+
+        Node<T> current = finnNode(fra);
+
+        for (int i = fra; i < til; i++){ // int i = tabellengde; i > 0; i--
+            liste.leggInn(current.verdi);
+            current = current.neste;
+
+        }
+
+        return liste;
+
     }
 
     @Override
@@ -122,7 +171,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks,false);
+
+         if (finnNode(indeks) != null){
+             return finnNode(indeks).verdi;
+         }
+            return null;
+
     }
 
     @Override
@@ -132,7 +187,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(nyverdi, "Ikke skriv nullverdier");
+
+        indeksKontroll(indeks, false);  // Se Liste, false: indeks = antall er ulovlig
+        Node<T> p = finnNode(indeks);
+        T gammelVerdi = p.verdi;
+        p.verdi = nyverdi;
+        endringer++;
+
+        return gammelVerdi;
+
     }
 
     @Override
