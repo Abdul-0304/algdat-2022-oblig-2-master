@@ -6,6 +6,7 @@ package no.oslomet.cs.algdat.Oblig2;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -93,11 +94,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException();
-    }
+
+        Objects.requireNonNull(verdi, "Ikke tillatt med null-verdier!");
+        //Oppgaven krever å sette en requireNonNull for å ikke tilate null verdier
+
+        if (antall == 0)  hode = hale = new Node<>(verdi);  // tom liste
+
+        else hale = hale.neste = new Node<>(verdi, hale, null);
+        // legges bakerst, dette gjør at vi legger til verdier bakerst.
+
+
+        antall++;                  // en mer i listen
+        return true;               // vellykket innlegging
+
+    } // Kilden til denne koden er fra kompendiet
 
     @Override
     public void leggInn(int indeks, T verdi) {
+
         throw new UnsupportedOperationException();
     }
 
