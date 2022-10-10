@@ -50,7 +50,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             int i = 0;
             while (i < a.length){ //går inn i en while loop
 
-                if (a[i] != null){ //hvis e n verdi ikke er lik null, setter vi den verdien til hode;
+                if (a[i] != null){ //hv is en verdi ikke er lik null, setter vi den verdien til hode;
                     hode = new Node<>(a[i]);
                     antall++;
                     break;
