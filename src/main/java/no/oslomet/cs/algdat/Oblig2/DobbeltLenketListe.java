@@ -138,12 +138,51 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        StringBuilder p = new StringBuilder(); // Oppretter en stringbuilder p
+
+        p.append('['); // p.append vil addere på noe foran p. eks String ut?="["
+
+        if (!tom() && hode != null){ // Når lista ikke er tom og hode ikke er null går vi inn
+
+            p.append(hode.verdi); // adderer på hoden sin verdi
+            Node<T> current = hode.neste; // Vi setter current som hode sin neste
+
+            while (current != null){  // tar med resten hvis det er noe mer
+
+                p.append(',').append(' ').append(current.verdi); // EKS: ut += ", " + current.verdi
+                current = current.neste;
+            }
+        }
+        p.append(']'); // addere tilslutt en ]
+
+
+
+        return p.toString();
     }
 
     public String omvendtString() {
-        throw new UnsupportedOperationException();
-    }
+        StringBuilder j = new StringBuilder();  // Oppretter en stringbuilder j
+
+        j.append('['); // j.append vil addere på noe foran p. eks String ut?="["
+
+        if (!tom() && hale != null) { // Når lista ikke er tom og HALE ikke er null går vi inn
+
+            Node<T> current = hale; //Vi setter current som hale
+            j.append(current.verdi); //Vi adderer på verdien til current, som vil si hale sin verdi på j
+            current = current.forrige; // Current går bakover ved bruk av current sin forrige
+
+            while (current != null){  // tar med resten hvis det er noe mer
+                j.append(',').append(' ').append(current.verdi); // append addere følgende symboler og verdier
+                current = current.forrige; // current settes til forgie node for hver loop
+
+            }
+        }
+        j.append(']'); // Tilslutt legger vi til en ]
+
+
+
+        return j.toString();
+    } // Vi gjør mye av det samme fra tostring metoden men her staretr vi fra hale!
 
     @Override
     public Iterator<T> iterator() {
