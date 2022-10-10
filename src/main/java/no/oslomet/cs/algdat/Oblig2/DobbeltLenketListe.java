@@ -41,7 +41,39 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        if (a == null){
+            throw new NullPointerException("Tabellen a er null!"); // Hvis tabellen a er null kaster vi en Nullpointerexception;
+        }
+
+        if (a.length > 0){ //Hvis a sin lengde er større en 0
+
+            int i = 0;
+
+            while (i < a.length){ //går inn i en while loop
+
+                if (a[i] != null){ //hvis en verdi ikke er lik null, setter vi den verdien til hode;
+                    hode = new Node<>(a[i]);
+                    antall++;
+                    break;
+                }
+                i++; //hvis verdien er null så går vi aldri inn i if setningen og dermed videre i lista
+            }
+
+            hale = hode; //Vi deklarer at hale=hode
+
+            if (hale != null){
+                i++;        //Hvis hale ikke er lik null så hopper vi en indeks videre
+                while (i < a.length){  //løkken kjører så lenge i er mindre enn a sin lengde
+
+                    if (a[i] != null){        // Hvis veriden ikke er null, så går vi inn i if setningen.
+                        hale = hale.neste = new Node<>(a[i],hale,null); //(hale.neste).forrige = hale; //hale = hale.neste;
+                        antall++;
+                    }
+
+                    i++;
+                }
+            }
+        }
     }
 
     public Liste<T> subliste(int fra, int til) {
@@ -50,12 +82,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
+        return antall; // returnerer antall verdier
+        //throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean tom() {
-        throw new UnsupportedOperationException();
+        return antall == 0; //returnerer true eller false basert på om antall==0
+        //throw new UnsupportedOperationException();
     }
 
     @Override
