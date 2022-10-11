@@ -247,7 +247,39 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+
+        //Objects.requireNonNull(indeks, "Ikke tillatt med null-verdier!");
+
+        if (tom()){
+            System.out.println("Listen er tom");
+            throw new IndexOutOfBoundsException("");
+            //throw new IndexOutOfBoundsException();
+
+        }
+
+        if (indeks>antall-1 || indeks<0){
+
+            // System.out.println("Ikke lovlig indeks valg");
+            indeksKontroll(indeks, false);
+        }else {
+            if (indeks == 0) {
+
+                T verdi = finnNode(indeks).verdi;
+                Node<T> fjerne = finnNode(indeks);
+
+                Node<T> temp = finnNode(indeks + 1);
+                temp.forrige = null;
+                hode = temp;
+                fjerne.neste = null;
+
+                antall--;                              // reduserer antallet
+                endringer++;
+                return verdi;
+                // returner fjernet verdi
+
+            }
+        }
+
     }
 
     @Override
