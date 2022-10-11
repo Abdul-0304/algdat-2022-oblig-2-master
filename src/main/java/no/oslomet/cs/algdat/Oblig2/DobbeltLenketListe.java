@@ -247,40 +247,66 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-
-        //Objects.requireNonNull(indeks, "Ikke tillatt med null-verdier!");
-
         if (tom()){
-            System.out.println("Listen er tom");
+            System.out.println("Tom liste");
             throw new IndexOutOfBoundsException("");
-            //throw new IndexOutOfBoundsException();
-
         }
 
         if (indeks>antall-1 || indeks<0){
-
-            // System.out.println("Ikke lovlig indeks valg");
             indeksKontroll(indeks, false);
-        }else {
-            if (indeks == 0) {
+
+        }   else {
+                if (indeks == 0) {
+
+                    T verdi = finnNode(indeks).verdi;
+                 Node<T> remove = finnNode(indeks);
+
+                 Node<T> temp = finnNode(indeks + 1);
+                    temp.forrige = null;
+                    hode = temp;
+                    remove.neste = null;
+
+                    antall--;
+                    endringer++;
+
+                    return verdi;
+            }else if (indeks == antall - 1) {
 
                 T verdi = finnNode(indeks).verdi;
-                Node<T> fjerne = finnNode(indeks);
+                Node<T> remove = finnNode(indeks);
 
-                Node<T> temp = finnNode(indeks + 1);
-                temp.forrige = null;
-                hode = temp;
-                fjerne.neste = null;
 
-                antall--;                              // reduserer antallet
+                Node<T> temp = finnNode(indeks - 1);
+                temp.neste = null;
+                hale = temp;
+                remove.forrige = null;
+
+                antall--;
                 endringer++;
+
                 return verdi;
-                // returner fjernet verdi
 
+            } else {
+                T verdi = finnNode(indeks).verdi;
+                Node<T> remove = finnNode(indeks);
+
+                Node<T> temp = finnNode(indeks - 1);
+                Node<T> tempTo = finnNode(indeks + 1);
+                temp.neste = tempTo;
+                tempTo.forrige = temp;
+                remove.neste = remove.forrige = null;
+
+                antall--;
+                endringer++;
+
+                return verdi;
             }
-        }
 
+        }
+        return null;
     }
+
+
 
     @Override
     public void nullstill() {
