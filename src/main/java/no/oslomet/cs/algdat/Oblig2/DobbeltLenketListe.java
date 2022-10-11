@@ -242,7 +242,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        if (inneholder(verdi)){
+            fjern(indeksTil(verdi));
+            return true;
+        } else { }
+        return false;
     }
 
     @Override
