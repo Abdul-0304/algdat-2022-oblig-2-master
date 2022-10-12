@@ -4,9 +4,7 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -33,19 +31,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     private Node<T> finnNode(int indeks){
         Node<T> current;
-        if(indeks < antall/2){
+        if(indeks < antall/2){                  //Hvis indeks er mindre enn antall/2 så setter vi current lik hode
             current = hode;
-            for (int i = 0; i < indeks; i++){
+            for (int i = 0; i < indeks; i++){   //Kjører en for-løkke som starter fra hode og går til høyre
                 current = current.neste;
             }
-            return current;
+            return current;                     //Returnerer node-en
         }
 
-        current = hale;
-        for (int i = antall - 1; i > indeks; i--){
+        current = hale;                             //Setter current til å være hale nå
+        for (int i = antall - 1; i > indeks; i--){  //Kjører en for-løkke som starter fra hale og går til venstre
             current = current.forrige;
         }
-        return current;
+        return current;                             //Retunerer node-en
     }
 
     // instansvariabler
@@ -110,35 +108,33 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public Liste<T> subliste(int fra, int til) {
 
-        fraTilKontroll(antall,fra,til);
+        fraTilKontroll(antall,fra,til);                 // Sjekket at indeks fra og til er lovlig
 
         Liste<T> liste = new DobbeltLenketListe<>();
-        int tabellengde = til-fra;
+        int tabellengde = til-fra;                      // Oppretter en variabel som gir oss differansen
 
-        if (tabellengde < 1) return liste;
+        if (tabellengde < 1) return liste;              // Hvis tabbellengden vår er mindre enn 1 så retunerer vi liste
 
         Node<T> current = finnNode(fra);
 
-        for (int i = fra; i < til; i++){ // int i = tabellengde; i > 0; i--
+        for (int i = fra; i < til; i++){                // Kjører en for-løkke som gir oss verdiene fra intervallet
             liste.leggInn(current.verdi);
             current = current.neste;
 
         }
 
-        return liste;
+        return liste;                                   // Her blir listen retunert
 
     }
 
     @Override
     public int antall() {
         return antall; // returnerer antall verdier
-        //throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean tom() {
-        return antall == 0; //returnerer true eller false basert på om antall==0
-        //throw new UnsupportedOperationException();
+        return antall == 0; //returnerer true eller false basert på om antall=0
     }
 
     @Override
@@ -153,7 +149,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         // legges bakerst, dette gjør at vi legger til verdier bakerst.
 
 
-        antall++;                  // en mer i listen
+        antall++;// en mer i listen
         endringer++;
         return true;               // vellykket innlegging
 
@@ -191,52 +187,51 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean inneholder(T verdi) {
 
-        if (indeksTil(verdi) == -1) {
+        if (indeksTil(verdi) == -1) {       //Hvis verdien ikke er i listen retuner false
             return false;
         }
-        return true;
-
+        return true;                       // Hvis den er i listen retuner true
     }
 
     @Override
     public T hent(int indeks) {
-        indeksKontroll(indeks,false);
+        indeksKontroll(indeks,false); // Kontrollerer Indeksen
 
-        if (finnNode(indeks) != null){
+        if (finnNode(indeks) != null){      // Hvis noden ikke er null så retunerer vi node sin verdi
             return finnNode(indeks).verdi;
         }
-        return null;
+        return null;                     // Hvis ikke retunerer vi null
 
     }
 
     @Override
     public int indeksTil(T verdi) {
-        if (verdi == null) return -1;
-        Node<T> indeks = hode;
+        if (verdi == null) return -1;               //Hvis verdien er lik null så retunerer vi -1
+        Node<T> indeks = hode;                  // Lager en variabel indeks som blir satt til hode
 
-        for (int i = 0; i < antall; i++){
+        for (int i = 0; i < antall; i++){       //Kjører en for-løkke
 
-            if (indeks.verdi.equals(verdi)){
+            if (indeks.verdi.equals(verdi)){    // Hvis verdien er i listen så retunerer vi indeksen til verdien
                 return i;
             }
             indeks = indeks.neste;
         }
 
-        return -1;
+        return -1;                                 // Hvis verdien ikke er i listen returner -1
 
     }
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        Objects.requireNonNull(nyverdi, "Ikke skriv nullverdier");
+        Objects.requireNonNull(nyverdi, "Ikke skriv nullverdier");  //Feillmelding hvis det er null-verdier
 
-        indeksKontroll(indeks, false);  // Se Liste, false: indeks = antall er ulovlig
-        Node<T> p = finnNode(indeks);
+        indeksKontroll(indeks, false);  // Kontrolerer indeks false: indeks = antall er ulovlig
+        Node<T> p = finnNode(indeks);          // Lager en variabel lik finnNode(indeks)
         T gammelVerdi = p.verdi;
-        p.verdi = nyverdi;
+        p.verdi = nyverdi;                     // Her erstatter vi gammelverdi med nyverdi
         endringer++;
 
-        return gammelVerdi;
+        return gammelVerdi;                    // Retunerer den gammleverdien
 
     }
 
@@ -251,63 +246,64 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        if (tom()){
+        if (tom()){                                     // Hvis listen er tom så sender vi ut en feilmelding
             System.out.println("Tom liste");
             throw new IndexOutOfBoundsException("");
         }
 
-        if (indeks>antall-1 || indeks<0){
-            indeksKontroll(indeks, false);
+        if (indeks>antall-1 || indeks<0){               // Hvis indeks er større enn antall-1 eller indeks er mindre enn
+            indeksKontroll(indeks, false);       // null så tar vi en indekskontroll som sier at antall er ulovlig
 
         }   else {
-            if (indeks == 0) {
+            if (indeks == 0) {                      // Hvis indeks er 0, altså hode. Så fjerner vi hoden
 
                 T verdi = finnNode(indeks).verdi;
                 Node<T> remove = finnNode(indeks);
 
                 Node<T> temp = finnNode(indeks + 1);
-                temp.forrige = null;
-                hode = temp;
+                temp.forrige = null;                       // Her oppdaterer vi pekerne
+                hode = temp;                               // Her oppdatere vi hode sin verdi
                 remove.neste = null;
 
-                antall--;
-                endringer++;
+                antall--;                                  // Minker antallet
+                endringer++;                               // Øker endringene
 
-                return verdi;
-            }else if (indeks == antall - 1) {
+                return verdi;                              // Retunerer verdien vi fjerna
+
+            }else if (indeks == antall - 1) {           // Hvis indeks er lik antall-1 altså hale, så fjerner vi halen
 
                 T verdi = finnNode(indeks).verdi;
                 Node<T> remove = finnNode(indeks);
 
 
                 Node<T> temp = finnNode(indeks - 1);
-                temp.neste = null;
-                hale = temp;
+                temp.neste = null;                          // Her oppdaterer vi pekeren til Null
+                hale = temp;                                // Her oppdaterer vi halen sin verdi
                 remove.forrige = null;
 
-                antall--;
-                endringer++;
+                antall--;                                   // Antallet minsker
+                endringer++;                                // Endringer Øker
 
-                return verdi;
+                return verdi;                               // Returnerer verdien som vi fjernet
 
-            } else {
+            } else {                                        // Her fjerner vi en verdi hvis den kommer imidten
                 T verdi = finnNode(indeks).verdi;
                 Node<T> remove = finnNode(indeks);
 
                 Node<T> temp = finnNode(indeks - 1);
                 Node<T> tempTo = finnNode(indeks + 1);
-                temp.neste = tempTo;
+                temp.neste = tempTo;                            // Her oppdatere vi pekerne
                 tempTo.forrige = temp;
                 remove.neste = remove.forrige = null;
 
-                antall--;
+                antall--;                                       // Antalelt minsker, mens endringer økes.
                 endringer++;
 
-                return verdi;
+                return verdi;                                   // Retunerer verdien som ble fjernet
             }
 
         }
-        return null;
+        return null;                                            // Returnerer null
     }
 
 
@@ -357,34 +353,35 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public String omvendtString() {
         StringBuilder j = new StringBuilder();  // Oppretter en stringbuilder j
 
-        j.append('[');          // j.append vil addere på noe foran p. eks String ut?="["
+        j.append('['); // j.append vil addere på noe foran p. eks String ut?="["
 
-        if (!tom() && hale != null) {           // Når lista ikke er tom og HALE ikke er null går vi inn
+        if (!tom() && hale != null) { // Når lista ikke er tom og HALE ikke er null går vi inn
 
-            Node<T> current = hale;           //Vi setter current som hale
-            j.append(current.verdi);         //Vi adderer på verdien til current, som vil si hale sin verdi på j
-            current = current.forrige;      // Current går bakover ved bruk av current sin forrige
+            Node<T> current = hale; //Vi setter current som hale
+            j.append(current.verdi); //Vi adderer på verdien til current, som vil si hale sin verdi på j
+            current = current.forrige; // Current går bakover ved bruk av current sin forrige
 
-            while (current != null){        // tar med resten hvis det er noe mer
-                j.append(',').append(' ').append(current.verdi);        // append addere følgende symboler og verdier
-                current = current.forrige;              // current settes til forgie node for hver loop
+            while (current != null){  // tar med resten hvis det er noe mer
+                j.append(',').append(' ').append(current.verdi); // append addere følgende symboler og verdier
+                current = current.forrige; // current settes til forgie node for hver loop
 
             }
         }
-        j.append(']');      // Tilslutt legger vi til en ]
+        j.append(']'); // Tilslutt legger vi til en ]
 
 
 
         return j.toString();
-    } // Vi gjør mye av det samme fra tostring metoden men her staretr vi fra hale og går bakover med forgie pekere!
+    } // Vi gjør mye av det samme fra tostring metoden men her staretr vi fra hale!
 
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        return new DobbeltLenketListeIterator();        // Returnerer en instans av iteratorklassen
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks,false);               // Sjekker om indeksen er lovlig
+        return new DobbeltLenketListeIterator(indeks);     // Retunere instans av klassen
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -399,7 +396,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-            throw new UnsupportedOperationException();
+            denne=finnNode(indeks);                               // Oppdaterer denne
+            fjernOK = false;                                      // blir sann når next() kalles
+            iteratorendringer = endringer;                        // teller endringer
         }
 
         @Override
@@ -409,9 +408,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-            throw new UnsupportedOperationException();
-        }
 
+            if (!hasNext()) {                                               // Kaster en feilmelding hvis det ikke er flere verdier i listen
+                throw new NoSuchElementException("Ingen verdier!");
+            }
+            if (iteratorendringer != endringer) {                           // Her så sjekekr vi om iteratorendringer er lik endringer, hvis
+                throw new ConcurrentModificationException();                // det ikke er lik blir det kastet ut feilmelding
+            }
+            fjernOK = true;
+            T temp= denne.verdi;                                        // Beholder verdien
+            denne=denne.neste;                                          // Oppdaterer denne til denne sin neste
+
+            return temp;                                                // Returnerer verdien
+        }
         @Override
         public void remove() {
             throw new UnsupportedOperationException();
