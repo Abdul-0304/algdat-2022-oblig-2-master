@@ -31,19 +31,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     private Node<T> finnNode(int indeks){
         Node<T> current;
-        if(indeks < antall/2){
+        if(indeks < antall/2){                  //Hvis indeks er mindre enn antall/2 så setter vi current lik hode
             current = hode;
-            for (int i = 0; i < indeks; i++){
+            for (int i = 0; i < indeks; i++){   //Kjører en for-løkke som starter fra hode og går til høyre
                 current = current.neste;
             }
-            return current;
+            return current;                     //Returnerer node-en
         }
 
-        current = hale;
-        for (int i = antall - 1; i > indeks; i--){
+        current = hale;                             //Setter current til å være hale nå
+        for (int i = antall - 1; i > indeks; i--){  //Kjører en for-løkke som starter fra hale og går til venstre
             current = current.forrige;
         }
-        return current;
+        return current;                             //Retunerer node-en
     }
 
     // instansvariabler
@@ -108,35 +108,33 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public Liste<T> subliste(int fra, int til) {
 
-        fraTilKontroll(antall,fra,til);
+        fraTilKontroll(antall,fra,til);                 // Sjekket at indeks fra og til er lovlig
 
         Liste<T> liste = new DobbeltLenketListe<>();
-        int tabellengde = til-fra;
+        int tabellengde = til-fra;                      // Oppretter en variabel som gir oss differansen
 
-        if (tabellengde < 1) return liste;
+        if (tabellengde < 1) return liste;              // Hvis tabbellengden vår er mindre enn 1 så retunerer vi liste
 
         Node<T> current = finnNode(fra);
 
-        for (int i = fra; i < til; i++){ // int i = tabellengde; i > 0; i--
+        for (int i = fra; i < til; i++){                // Kjører en for-løkke som gir oss verdiene fra intervallet
             liste.leggInn(current.verdi);
             current = current.neste;
 
         }
 
-        return liste;
+        return liste;                                   // Her blir listen retunert
 
     }
 
     @Override
     public int antall() {
         return antall; // returnerer antall verdier
-        //throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean tom() {
-        return antall == 0; //returnerer true eller false basert på om antall==0
-        //throw new UnsupportedOperationException();
+        return antall == 0; //returnerer true eller false basert på om antall=0
     }
 
     @Override
@@ -189,52 +187,51 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean inneholder(T verdi) {
 
-            if (indeksTil(verdi) == -1) {
+            if (indeksTil(verdi) == -1) {       //Hvis verdien ikke er i listen retuner false
                 return false;
             }
-             return true;
-
+             return true;                       // Hvis den er i listen retuner true
     }
 
     @Override
     public T hent(int indeks) {
-        indeksKontroll(indeks,false);
+        indeksKontroll(indeks,false); // Kontrollerer Indeksen
 
-         if (finnNode(indeks) != null){
+         if (finnNode(indeks) != null){      // Hvis noden ikke er null så retunerer vi node sin verdi
              return finnNode(indeks).verdi;
          }
-            return null;
+            return null;                     // Hvis ikke retunerer vi null
 
     }
 
     @Override
     public int indeksTil(T verdi) {
-        if (verdi == null) return -1;
-            Node<T> indeks = hode;
+        if (verdi == null) return -1;               //Hvis verdien er lik null så retunerer vi -1
+            Node<T> indeks = hode;                  // Lager en variabel indeks som blir satt til hode
 
-            for (int i = 0; i < antall; i++){
+            for (int i = 0; i < antall; i++){       //Kjører en for-løkke
 
-                if (indeks.verdi.equals(verdi)){
+                if (indeks.verdi.equals(verdi)){    // Hvis verdien er i listen så retunerer vi indeksen til verdien
                     return i;
                 }
                 indeks = indeks.neste;
             }
 
-         return -1;
+         return -1;                                 // Hvis verdien ikke er i listen returner -1
 
     }
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        Objects.requireNonNull(nyverdi, "Ikke skriv nullverdier");
+        Objects.requireNonNull(nyverdi, "Ikke skriv nullverdier");  //Feillmelding hvis det er null-verdier
 
-        indeksKontroll(indeks, false);  // Se Liste, false: indeks = antall er ulovlig
-        Node<T> p = finnNode(indeks);
+        indeksKontroll(indeks, false);  // Kontrolerer indeks false: indeks = antall er ulovlig
+        Node<T> p = finnNode(indeks);          // Lager en variabel lik finnNode(indeks)
         T gammelVerdi = p.verdi;
-        p.verdi = nyverdi;
+        p.verdi = nyverdi;                     // Her erstatter vi gammelverdi med nyverdi
         endringer++;
 
-        return gammelVerdi;
+        return gammelVerdi;                    // Retunerer den gammleverdien
 
     }
 
