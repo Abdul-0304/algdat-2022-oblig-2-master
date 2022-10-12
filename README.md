@@ -43,14 +43,11 @@ settes til siste posisjon. Dette gjøre på en lik måte som else setningen tidl
 og vi setter hale sin neste til null. Det gjør at verdien vil bli satt i siste posisjon som den nye halen. 
 
 Oppgave 6
-Fullførte T fjern metoden ved å bruke if og else setninger, inni de oppdaterte vi pekere, og setter hode og hale sin verdi til null. Samtidig 
-fjerner vi verdien imidten og oppdatere pekerene foran og bak til midt noden.
-Fullførte boolean fjern metoden ved å lage en if-setning som skjekker om verdien vi har satt inn inneholder i listen.
-Dette gjør vi ved å kalle på metoden inneholder og sette inn verdien fra parameteret. Hvis if-setningen stemmer
-da går vi inn i if setningen og fjerner den verdien ved bruk av den andre fjern metoden (T fjern(int indeks)).
-Deretter returnerer vi true siden verdien ble fjernet. Om vi verdien vår ikke finnes i listen så skjer ingenting fordi
-else setningen er tom og da returnerer vi false.
-
+Fullførte T fjern metoden ved å bruke if og else setninger, inni de oppdaterte vi pekere, og setter hode
+og hale sin verdi til null. Samtidig fjerner vi verdien imidten og oppdatere pekerene foran og bak til midt noden.
+Boolean fjern metoden er inspirert av T fjern metoden med tanke på at den løses for tre situasjoner. Når første fjernes,
+når mellomste fjernes og når siste fjernes. Forskjellen er at når disse situasjonene løses returneres true/false
+istedefor verdi. Boolean fjern metoden er også løst ved hjelp av if else setninger i tillegg til en while løkke.
 
 
 Oppgave 7
