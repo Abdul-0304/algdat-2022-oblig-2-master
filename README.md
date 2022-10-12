@@ -20,14 +20,30 @@ metoden, så var det egentlig nesten det samme. Bare at på tostring brukte vi h
 med tanke vi tok inspirasjon fra komdendiet. Metoden legger til verdien bakerst i listen, hvis listen er tom
 da vi hode og hale bli satt som null.
 
-I oppgave 3a, så tegnet vi ned hva som skjer. Vi så at oppgaven ba oss gå fra hode til hale og motsatt vei. Så vi benyttet oss av
-to for-løkker i finnNode metoden. Vi tok også inspirasjon fra kompendiet. Deretter lagde vi hent og oppdater metodene. Hent metoden så 
-skrev vi bare en if setning og retunerte verdien. I oppdater metoden så benyttet vi oss av en variabel for å oppdatere verdien, og deretter
-retunerte vi gammleverdien. 
+Oppgave 5
+Fullfører void legginn metoden. Startet må sette av en object.requireNoNull. Den gjør at vi ikke tar inn noen null verdier og
+skriver ut en feilmeldings tekst. Deretter bruker vi indekskontroll metoden som skjekker om indeks = antall er lovelig,
+Det gir ut true. if setingen gjlr at vi setter den nye verdien først. Deretter så skjekkes det om listen er tom og hvis den er det
+så skal hode og hale sine neste og forgie settes til null. Deretter kommer else setningen som da setter den nye verdien til å være en ny node som er hode.
+For å sette verdien til hode setter vi også hode sin forggie peker til null.
+Vi lager også en else-if setning som sier hvis indeksen til verdein er lik antall er vi i siste posisjon og den nyverdien
+settes til siste posisjon. Dette gjøre på en lik måte som else setningen tidligere. ved at vi setter den nye verdien til å bli en ny node hale 
+og vi setter hale sin neste til null. Det gjør at verdien vil bli satt i siste posisjon som den nye halen. 
 
-I oppgave 3b, Så fikk vi inspirasjon fra komdendiet. Det som skjer her er at vi sjekker først fra og til indeksene. Deretter oppreter
-vi en dobbeltlenketliste der vi setter inn verdiene fra intervallet fra og til. Dette gjør vi ved bruk av en for-løkke,
+Oppgave 6
+Fullførte boolean fjern metoden ved å lage en if-setning som skjekker om verdien vi har satt inn inneholder i listen.
+Dette gjør vi ved å kalle på metoden inneholder og sette inn verdien fra parameteret. Hvis if-setningen stemmer
+da går vi inn i if setningen og fjerner den verdien ved bruk av den andre fjern metoden (T fjern(int indeks)).
+Deretter returnerer vi true siden verdien ble fjernet. Om vi verdien vår ikke finnes i listen så skjer ingenting fordi
+else setningen er tom og da returnerer vi false.
 
-I oppgave 4, så lagde vi indeksTil metode og inneholder Metodde. Indeks metoden så benyttet vi oss av mange if setninger og en for løkke
-for å sjekek om verdien er i listen og retunerer den. Deretter lagde vi inneholder metode som sjekket bare om verdien var i listen eller ikke
-måten vi gjorde det på var å ha if setning der vi bruker indekstil metoden i og retunerer true eller false basert på svaret.
+Oppgave 7
+Her lages nullstill metoden. Nullstillingen skjer ved å først sette hode og hale til null.
+antallet vårt blir satt som 0. og endringene våre økes med 1. Dette var krav fra oppgaven.
+Deretter opprettes en generisk node som vi kaller for current som blir satt som hode. Deretter lages en while løkke
+som skjekker om current ikke er null. Hver gang current har en verdi og ikke er tom så, settes currenten sin verdi til null.
+ved hjelp av neste og forgie pekere setter vi den neste noden og forgie noden til null. til slutt tar vi en current sin neste
+for å hoppe videre til neste node. Siden vi tidligere satte current sin neste til null, så vil while løkken sitt argument altid
+stemme og hver node i listen vil bli satt til null. Til slutt har vi en else setning for else-if argumentet vårt. 
+Denne else setningen oppretter to noder. En node m og en node j. Node m gjør at m flyttes indeks - 1 ganger.
+Node j oppdaterer pekerene sine til å få m sine pekere.
